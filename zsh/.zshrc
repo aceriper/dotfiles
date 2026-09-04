@@ -118,11 +118,14 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="ls -alh"
 alias python=python3
+# esv sits at a different path per OS. Derive it from $HOME so this works for
+# any account (andrewjohnson, benjohnson, bjohnson) instead of hardcoding one.
 if [[ "$(uname)" == "Darwin" ]]; then
-  alias esv=/Users/benjohnson/Projects/esv/bin/esv
+  ESV_HOME="$HOME/Projects/esv"
 else
-  alias esv=/home/bjohnson/workspace/apps/esv/bin/esv
+  ESV_HOME="$HOME/workspace/apps/esv"
 fi
+alias esv="$ESV_HOME/bin/esv"
 
 
 # Prepend a directory to PATH only if it exists, so this file stays portable
@@ -143,7 +146,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 if [[ "$(uname)" == "Darwin" ]]; then
   export PATH="/opt/homebrew/bin:$PATH"
-  export PATH="/Users/benjohnson/Projects/esv/bin:$PATH"
+  export PATH="$ESV_HOME/bin:$PATH"
 fi
 
 # >>> conda initialize >>>
